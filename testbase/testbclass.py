@@ -10,7 +10,7 @@ import inspect
 import time
 import traceback
 from termcolor import colored
-import errors
+import testbase.errors as errors
 
 # this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests

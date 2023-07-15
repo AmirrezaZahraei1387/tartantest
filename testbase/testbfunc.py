@@ -6,8 +6,8 @@ it will run all the functions to be tested.
 you do not need to put a special name at the first of function
 names."""
 
-import errors
-from testbclass import getParameterNumber, runTest
+import testbase.errors as errors
+from testbase.testbclass import getParameterNumber, runTest
 
 
 class TestBFunc:
