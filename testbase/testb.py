@@ -64,6 +64,21 @@ class TestB:
     def run(self):
 
         className = self.checkClass()   # if the subclass is not something we want error is raised
+        allMethods = self.getAllMethodNames(className=className)    # the output is similar to this:
+        # [(methodName, methodAddress), (methodName, methodAddress), ... ]
+
+        for method in allMethods:
+
+            startingTime = time.time()
+
+            try:
+                method[1]()
+            except Exception as error:
+                print("test failed at ", method[0])
+                print(traceback.format_exc())
+
+            endingTime = time.time()
+            print("ran test ", method[0], " in ", endingTime, "s")
 
 
 
