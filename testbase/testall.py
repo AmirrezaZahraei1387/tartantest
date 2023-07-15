@@ -7,5 +7,22 @@ you do the same thing that you want.
 to do this you have two options
 1 - giving the path of each test file manually
 2 - giving the path of directory containing all the tests"""
+import subprocess
+import pathlib
+import os
 
 
+def fileRun(pathFiles: list):
+
+    for path in pathFiles:
+        betterPath = pathlib.Path(path).absolute()
+        subprocess.run(["python", str(betterPath)])
+
+
+def dirOpen(pathDir):
+
+    pathFiles = os.listdir(pathDir)
+    for index in range(len(pathFiles)):
+        pathFiles[index] = pathlib.Path(pathDir+pathFiles[index]).absolute()
+
+    fileRun(pathFiles)
