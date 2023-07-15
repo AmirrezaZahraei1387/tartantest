@@ -5,12 +5,9 @@ test functions and then when you use the method run
 it will run all the functions to be tested.
 you do not need to put a special name at the first of function
 names."""
-import inspect
-import time
-import traceback
-from termcolor import colored
+
 import errors
-from testbclass import getParameterNumber
+from testbclass import getParameterNumber, runTest
 
 
 class TestBFunc:
@@ -33,8 +30,17 @@ class TestBFunc:
 
         parameterNumber = getParameterNumber(function)
         if parameterNumber > 0:
-            raise errors.TooManyParametersError("expected no parameters for "+str(function))
+            raise errors.TooManyParametersError("expected no parameters for "+str(function.__name__))
         return function
+
+    def run(self):
+
+        for func in self.__functions:
+            runTest(func, func.__name__)
+
+
+
+
 
 
 
