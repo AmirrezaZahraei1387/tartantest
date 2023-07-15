@@ -17,6 +17,12 @@ import errors
 STARTING_NAME = "testb"
 
 
+def getParameterNumber(obj: callable):
+    """this function will simply give back the number of parameters of
+    a callable object"""
+    return len(inspect.signature(obj).parameters)
+
+
 class TestBClass:
 
     @staticmethod
@@ -32,7 +38,7 @@ class TestBClass:
         else:
             raise errors.NotOneSubClassError("expected exactly one subclass got " + str(className))
 
-        parametersNumber = len(inspect.signature(className).parameters)
+        parametersNumber = getParameterNumber(className)
         if parametersNumber > 0:  # check if the __init__ have more than or  0 parameter
             raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
 
@@ -52,7 +58,7 @@ class TestBClass:
             if method[0].startswith(STARTING_NAME):  # check if the method name starts with The value in
                 # STARTING_NAME or no
 
-                parameterNumber = len(inspect.signature(method[1]).parameters)
+                parameterNumber = getParameterNumber(method[1])
                 if parameterNumber != 0:  # because we make an object we should check it
                     # with parameterNumber 0
                     raise errors.TooManyParametersError(
