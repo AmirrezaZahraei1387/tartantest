@@ -51,17 +51,19 @@ class TestB:
                 methods.remove(method)
 
             parameterNumber = len(inspect.signature(method[1]).parameters)
-            if parameterNumber != 1:
-                raise errors.TooManyParametersError("expected one parameter for "+method[0]+" got "+method[1])
+            if parameterNumber != 0:    # because we make an object we should check it
+                # with parameterNumber 0
+                raise errors.TooManyParametersError("expected one parameter for "+method[0]+" got "+str(parameterNumber))
 
         return methods
 
 
 class A(TestB):
-    pass
+    def ff(self):
+        pass
 
 
-A.checkClass()
+print(A.getAllMethodNames(A.checkClass()))
 
 
 
