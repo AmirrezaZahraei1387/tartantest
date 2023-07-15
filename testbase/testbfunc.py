@@ -12,6 +12,7 @@ from termcolor import colored
 import errors
 from testbclass import getParameterNumber
 
+
 class TestBFunc:
 
     __functions: list = []
@@ -20,6 +21,7 @@ class TestBFunc:
         """this is the decorator that will get the
         function and save the function to run for
         test."""
+        self.checkFunc(function=function)
         self.__functions.append(function)
         return function
 
@@ -29,7 +31,12 @@ class TestBFunc:
         function have. if it has zero parameters it path otherwise the
         method will raise an error"""
 
-        parameterNumber =
+        parameterNumber = getParameterNumber(function)
+        if parameterNumber > 0:
+            raise errors.TooManyParametersError("expected no parameters for "+str(function))
+        return function
+
+
 
 
 
