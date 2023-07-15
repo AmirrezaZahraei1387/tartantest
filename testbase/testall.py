@@ -19,10 +19,12 @@ def fileRun(pathFiles: list):
         subprocess.run(["python", str(betterPath)])
 
 
-def dirOpen(pathDir):
+def dirRun(pathDir):
 
     pathFiles = os.listdir(pathDir)
+
     for index in range(len(pathFiles)):
-        pathFiles[index] = pathlib.Path(pathDir+pathFiles[index]).absolute()
+        pathFiles[index] = pathlib.Path(pathDir+"/"+pathFiles[index]).absolute()
 
     fileRun(pathFiles)
+
