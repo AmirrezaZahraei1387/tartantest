@@ -9,6 +9,7 @@ have parameters."""
 import warnings
 import time
 import inspect
+import errors
 
 
 class TestB:
@@ -18,14 +19,17 @@ class TestB:
         or no.
         1 - one checking if one exist or no
         2 - checking if its constructor has exactly 1 parameter"""
+
         className = TestB.__subclasses__()  # here we are getting the name of the subclass
         if len(className) == 1:  # making sure there is exactly one subclass
             className = className[0]
         else:
-            raise
+            raise errors.NotOneSubClassError("expected exactly one subclass got "+str(className))
+
+        return className
+
 
     def getAllMethodNames(self):
         """this method will get all the method names of the
         subclass"""
 
-        className = TestB.__subclasses__()[0]  # here we are getting the name of the subclass
