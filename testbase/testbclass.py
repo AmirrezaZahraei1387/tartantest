@@ -1,6 +1,6 @@
-"""the testb is a file that is implemented to make
+"""the testclass is a file that is implemented to make
 the most important part of the library.
-this file will have a class named TestB that can be inherited from
+this file will have a class named TestBClass that can be inherited from
 the class containing the tests. it will run the tests.
 the class will run the tests by getting the names of
 methods inside that starts with test word. this because of
