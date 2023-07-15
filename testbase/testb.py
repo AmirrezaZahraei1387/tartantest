@@ -31,9 +31,9 @@ class TestB:
         else:
             raise errors.NotOneSubClassError("expected exactly one subclass got " + str(className))
 
-        parameters = inspect.signature(className).parameters
-        if len(parameters) != 1:  # check if the __init__ have more than or less than 1 parameter
-            raise errors.TooManyParametersError("expected one parameter got " + str(parameters))
+        parametersNumber = len(inspect.signature(className).parameters)
+        if parametersNumber > 1:  # check if the __init__ have more than or  1 parameter
+            raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
 
         return className
 
@@ -57,9 +57,11 @@ class TestB:
         return methods
 
 
+class A(TestB):
+    pass
 
 
-
+A.checkClass()
 
 
 
