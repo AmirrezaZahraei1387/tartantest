@@ -32,7 +32,7 @@ class TestB:
             raise errors.NotOneSubClassError("expected exactly one subclass got " + str(className))
 
         parametersNumber = len(inspect.signature(className).parameters)
-        if parametersNumber > 1:  # check if the __init__ have more than or  1 parameter
+        if parametersNumber > 0:  # check if the __init__ have more than or  0 parameter
             raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
 
         return className
@@ -44,22 +44,28 @@ class TestB:
 
         obj = className()
         methods = inspect.getmembers(object=obj, predicate=inspect.ismethod)
+        acceptedMethods = []
 
         for method in methods:
-            if not method[0].startswith(STARTING_NAME):    # check if the method name starts with The value in
+
+            if method[0].startswith(STARTING_NAME):    # check if the method name starts with The value in
                 # STARTING_NAME or no
-                methods.remove(method)
 
-            parameterNumber = len(inspect.signature(method[1]).parameters)
-            if parameterNumber != 0:    # because we make an object we should check it
-                # with parameterNumber 0
-                raise errors.TooManyParametersError("expected one parameter for "+method[0]+" got "+str(parameterNumber))
+                parameterNumber = len(inspect.signature(method[1]).parameters)
+                if parameterNumber != 0:    # because we make an object we should check it
+                    # with parameterNumber 0
+                    raise errors.TooManyParametersError("expected 0 parameter for "+method[0]+" got "+str(parameterNumber))
 
-        return methods
+                acceptedMethods.append(method)
+
+        return acceptedMethods
 
 
 class A(TestB):
-    def ff(self):
+    def ff(self, k):
+        pass
+
+    def testb_uf(self):
         pass
 
 
