@@ -10,7 +10,7 @@ import time
 import traceback
 from termcolor import colored
 import errors
-
+from testbclass import getParameterNumber
 
 class TestBFunc:
 
@@ -23,8 +23,15 @@ class TestBFunc:
         self.__functions.append(function)
         return function
 
-    def checkFunc(self):
+    @staticmethod
+    def checkFunc(function):
         """the checkFunc checks the number of parameters the
         function have. if it has zero parameters it path otherwise the
         method will raise an error"""
+
+        parameterNumber =
+
+
+
+
 
