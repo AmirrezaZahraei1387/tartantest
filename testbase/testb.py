@@ -10,8 +10,9 @@ import warnings
 import time
 import inspect
 import errors
+import traceback
 
-# this is the constants that defines the name that must com first in the method name of subclass that
+# this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests
 STARTING_NAME = "testb"
 
@@ -60,16 +61,12 @@ class TestB:
 
         return acceptedMethods
 
+    def run(self):
 
-class A(TestB):
-    def ff(self, k):
-        pass
-
-    def testb_uf(self):
-        pass
+        className = self.checkClass()   # if the subclass is not something we want error is raised
 
 
-print(A.getAllMethodNames(A.checkClass()))
+
 
 
 
