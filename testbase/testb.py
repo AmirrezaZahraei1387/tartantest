@@ -6,11 +6,11 @@ the class will run the tests by getting the names of
 methods inside that starts with test word. this because of
 this reason to find the methods that are not tests and probably
 have parameters."""
-import warnings
-import time
 import inspect
-import errors
+import time
 import traceback
+from termcolor import colored
+import errors
 
 # this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests
@@ -49,13 +49,14 @@ class TestB:
 
         for method in methods:
 
-            if method[0].startswith(STARTING_NAME):    # check if the method name starts with The value in
+            if method[0].startswith(STARTING_NAME):  # check if the method name starts with The value in
                 # STARTING_NAME or no
 
                 parameterNumber = len(inspect.signature(method[1]).parameters)
-                if parameterNumber != 0:    # because we make an object we should check it
+                if parameterNumber != 0:  # because we make an object we should check it
                     # with parameterNumber 0
-                    raise errors.TooManyParametersError("expected 0 parameter for "+method[0]+" got "+str(parameterNumber))
+                    raise errors.TooManyParametersError(
+                        "expected 0 parameter for " + method[0] + " got " + str(parameterNumber))
 
                 acceptedMethods.append(method)
 
@@ -63,8 +64,8 @@ class TestB:
 
     def run(self):
 
-        className = self.checkClass()   # if the subclass is not something we want error is raised
-        allMethods = self.getAllMethodNames(className=className)    # the output is similar to this:
+        className = self.checkClass()  # if the subclass is not something we want error is raised
+        allMethods = self.getAllMethodNames(className=className)  # the output is similar to this:
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
 
         for method in allMethods:
@@ -73,15 +74,13 @@ class TestB:
 
             try:
                 method[1]()
-            except Exception as error:
-                print("test failed at ", method[0])
-                print(traceback.format_exc())
+            except Exception:
+                print(colored("test failed at " + str(method[0]), "red"))
+                print(colored(traceback.format_exc(), "red"))
+            else:
+                print(colored("successfully ran test " + str(method[0]), "green"))
 
             endingTime = time.time()
-            print("ran test ", method[0], " in ", endingTime, "s")
+            print(colored("ran test " + method[0] + " in " + str(endingTime - startingTime) + "s", "green"))
 
-
-
-
-
-
+            print("=======================================================================")
