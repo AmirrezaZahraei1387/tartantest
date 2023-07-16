@@ -86,24 +86,7 @@ class TestBClass:
         allMethods = self.getAllMethodNames(className=className)  # the output is similar to this:
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
 
+        print("***start running tests in class ", className.__name__, '\n')
         for method in allMethods:
             runTest(testAddress=method[1], testName=method[0])
-
-
-class b(TestBClass):
-
-    def testb_print(self):
-        print("hello")
-
-
-class c(TestBClass):
-    def testb_y(self):
-        print("y")
-
-
-if __name__ == "__main__":
-    a = b()
-    r = c()
-
-    a.run()
-    r.run()
+        print("***end running tests in class ", className.__name__, '\n')
