@@ -125,3 +125,13 @@ def ifnIn(first, second, description=""):
         raise errors.FailAssertionError("first not in second", first, second, "{} not in {}",
                                         "ifnIn",
                                         description)
+
+
+
+
+
+
+
+
+
+
