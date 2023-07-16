@@ -17,7 +17,7 @@ import testbase.errors as errors
 STARTING_NAME = "testb"
 
 
-def getParameterNumber(obj: callable):
+def getParameterNumber(obj:callable):
     """this function will simply give back the number of parameters of
     a callable object"""
     return len(inspect.signature(obj).parameters)
@@ -43,19 +43,13 @@ def runTest(testAddress, testName):
 
 class TestBClass:
 
-    @staticmethod
-    def checkClass():
+
+    def checkClass(self):
         """this method will check if the subclass meet the requirements
         or no.
-        1 - one checking if one exist or no
-        2 - checking if its constructor has exactly 1 parameter"""
+        checking if its constructor has exactly 1 parameter self"""
 
-        className = TestBClass.__subclasses__()  # here we are getting the name of the subclass
-        if len(className) == 1:  # making sure there is exactly one subclass
-            className = className[0]
-        else:
-            raise errors.NotOneSubClassError("expected exactly one subclass got " + str(className))
-
+        className = self.__class__().__class__  # here we are getting the name of the subclass
         parametersNumber = getParameterNumber(className)
         if parametersNumber > 0:  # check if the __init__ have more than or  0 parameter
             raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
@@ -95,3 +89,21 @@ class TestBClass:
         for method in allMethods:
             runTest(testAddress=method[1], testName=method[0])
 
+
+class b(TestBClass):
+
+    def testb_print(self):
+        print("hello")
+
+
+class c(TestBClass):
+    def testb_y(self):
+        print("y")
+
+
+if __name__ == "__main__":
+    a = b()
+    r = c()
+
+    a.run()
+    r.run()
