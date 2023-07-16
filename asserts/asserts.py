@@ -25,16 +25,16 @@ def ifnEqual(first, second, description=""):
         raise errors.FailAssertionError("second != first", first, second, "{}!={}", "ifnEqual", description)
 
 
-def failTest(descriptions, do):
+def failTest(description=""):
     """fail the test that is wanted, however it won't terminate
     all the tests in the class"""
-    # raising error
+    raise errors.preFailError("failtest", description)
 
 
-def failAllTests(descriptions, do):
+def failAllTests(description=""):
     """failing all the tests in  the class. in  that case the other tests
     will never run  on that class"""
-    # raising error
+    raise errors.preFailError("failall", description)
 
 
 def ifTrue(first, description=""):
@@ -125,10 +125,6 @@ def ifnIn(first, second, description=""):
         raise errors.FailAssertionError("first not in second", first, second, "{} not in {}",
                                         "ifnIn",
                                         description)
-
-
-
-
 
 
 
