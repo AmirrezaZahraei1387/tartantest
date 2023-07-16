@@ -1,0 +1,4 @@
+
+
+class FailAssertionError(BaseException):
+    pass
