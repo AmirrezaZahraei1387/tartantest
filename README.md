@@ -7,7 +7,7 @@ the option of this library for working toward the unittest are the following
 basically.
 
 #### 1 - showing the time it took to run the scripts
-#### 2 - adding different types of asserting to each test you
+#### 2 - adding different types of asserting to each test
 #### 3 - giving you the ability to run lots of tests in different files all together
 #### 4 - run each tests you write individually and show each of them errors without stopping when a test went wrong
 #### 5 - generating a meaningful messages about what happened
