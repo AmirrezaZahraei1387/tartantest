@@ -3,12 +3,11 @@ run the tests. it gives some basic features to that"""
 import time
 import traceback
 from termcolor import colored
-import abc
 from setUpers.setup import SetDown
 import inspect
 
 
-class Base(abc.ABC, SetDown):
+class Base(SetDown):
 
 
     def __init__(self, allMethods):
@@ -32,9 +31,12 @@ class Base(abc.ABC, SetDown):
         try:
 
             methods = self.runMethod(testName)  # getting the names off setup and takedown methods
-            methods["setup"][1]()
-            testAddress()
-            methods["takedown"][1]()
+            if methods != 0:
+                methods["setup"][1]()
+                testAddress()
+                methods["takedown"][1]()
+            else:
+                testAddress()
 
         except Exception:
             self.print_error_message(testName)
@@ -47,7 +49,3 @@ class Base(abc.ABC, SetDown):
         print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
 
         print("=======================================================================")
-
-    @abc.abstractmethod
-    def run(self):
-        """this is the function that will run the test"""
