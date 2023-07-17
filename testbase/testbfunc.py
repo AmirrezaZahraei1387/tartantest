@@ -7,10 +7,10 @@ you do not need to put a special name at the first of function
 names."""
 
 import testbase.errors as errors
-from testbase.testbclass import getParameterNumber, runTest
+from testbase.testbclass import Base
 
 
-class TestBFunc:
+class TestBFunc(Base):
 
     __functions: list = []
 
@@ -30,13 +30,12 @@ class TestBFunc:
         self.__functions.append(function)
         return function
 
-    @staticmethod
-    def checkFunc(function):
+    def checkFunc(self, function):
         """the checkFunc checks the number of parameters the
         function have. if it has zero parameters it path otherwise the
         method will raise an error"""
 
-        parameterNumber = getParameterNumber(function)
+        parameterNumber = self.getParameterNumber(function)
         if parameterNumber > 0:
             raise errors.TooManyParametersError("expected no parameters for "+str(function.__name__))
         return function
@@ -45,7 +44,7 @@ class TestBFunc:
 
         print("***start running function tests named ", self.__name, "\n")
         for func in self.__functions:
-            runTest(func, func.__name__)
+            self.runTest(func, func.__name__)
         print("***end running function tests named ", self.__name, "\n")
 
 

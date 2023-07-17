@@ -54,7 +54,8 @@ class Base(abc.ABC):
 
 
 
-class TestBClass():
+
+class TestBClass(Base):
 
 
     def checkClass(self):
@@ -63,14 +64,13 @@ class TestBClass():
         checking if its constructor has exactly 1 parameter self"""
 
         className = self.__class__().__class__  # here we are getting the name of the subclass
-        parametersNumber = getParameterNumber(className)
+        parametersNumber = self.getParameterNumber(className)
         if parametersNumber > 0:  # check if the __init__ have more than or  0 parameter
             raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
 
         return className
 
-    @staticmethod
-    def getAllMethodNames(className):
+    def getAllMethodNames(self, className):
         """this method will get all the method names of the
         subclass given as className"""
 
@@ -83,7 +83,7 @@ class TestBClass():
             if method[0].startswith(STARTING_NAME):  # check if the method name starts with The value in
                 # STARTING_NAME or no
 
-                parameterNumber = getParameterNumber(method[1])
+                parameterNumber = self.getParameterNumber(method[1])
                 if parameterNumber != 0:  # because we make an object we should check it
                     # with parameterNumber 0
                     raise errors.TooManyParametersError(
@@ -103,6 +103,5 @@ class TestBClass():
 
         print("***start running tests in class ", className.__name__, '\n')
         for method in allMethods:
-            runTest(testAddress=method[1], testName=method[0])
+            self.runTest(testAddress=method[1], testName=method[0])
         print("***end running tests in class ", className.__name__, '\n')
-
