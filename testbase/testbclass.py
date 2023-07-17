@@ -12,13 +12,21 @@ import traceback
 from termcolor import colored
 import testbase.errors as errors
 import abc
+from setUpers.errors import BothSetupTakedownError
+from setUpers.setup import SetDown
+
 
 # this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests
 STARTING_NAME = "testb"
 
 
-class Base(abc.ABC):
+class Base(abc.ABC, SetDown):
+
+
+    def __init__(self, allMethods):
+        super().__init__(allMethods=allMethods)
+
 
     @staticmethod
     def getParameterNumber(obj: callable):
@@ -57,6 +65,13 @@ class Base(abc.ABC):
 
 class TestBClass(Base):
 
+    def __init__(self):
+
+
+        self.className = self.checkClass()  # if the subclass is not something we want error is raised
+        self.allMethods = self.getAllMethodNames(self.className)    # the output is similar to this:
+        # [(methodName, methodAddress), (methodName, methodAddress), ... ]
+        super().__init__(self.allMethods)
 
     def checkClass(self):
         """this method will check if the subclass meet the requirements
@@ -97,11 +112,9 @@ class TestBClass(Base):
 
     def run(self):
 
-        className = self.checkClass()  # if the subclass is not something we want error is raised
-        allMethods = self.getAllMethodNames(className=className)  # the output is similar to this:
-        # [(methodName, methodAddress), (methodName, methodAddress), ... ]
 
-        print("***start running tests in class ", className.__name__, '\n')
-        for method in allMethods:
+
+        print("***start running tests in class ", self.className.__name__, '\n')
+        for method in self.allMethods:
             self.runTest(testAddress=method[1], testName=method[0])
-        print("***end running tests in class ", className.__name__, '\n')
+        print("***end running tests in class ", self.className.__name__, '\n')
