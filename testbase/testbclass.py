@@ -12,7 +12,6 @@ import traceback
 from termcolor import colored
 import testbase.errors as errors
 import abc
-from setUpers.errors import BothSetupTakedownError
 from setUpers.setup import SetDown
 
 
@@ -43,7 +42,12 @@ class Base(abc.ABC, SetDown):
         startingTime = time.time()
 
         try:
+
+            methods = self.runMethod(testName)  # getting the names off setup and takedown methods
+            methods["setup"][1]()
             testAddress()
+            methods["takedown"][1]()
+
         except Exception:
             self.print_error_message(testName)
         except BaseException:
@@ -111,8 +115,6 @@ class TestBClass(Base):
 
 
     def run(self):
-
-
 
         print("***start running tests in class ", self.className.__name__, '\n')
         for method in self.allMethods:
