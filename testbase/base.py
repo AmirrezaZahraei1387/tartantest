@@ -31,7 +31,7 @@ class Base(SetDown):
         try:
 
             methods = self.runMethod(testName)  # getting the names off setup and takedown methods
-            if methods != 0:
+            if methods != 0:    # if that was 0 it means that there is no setup or takedown for the test
                 methods["setup"][1]()
                 testAddress()
                 methods["takedown"][1]()

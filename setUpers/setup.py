@@ -63,7 +63,7 @@ class SetDown:
 
         elif setupMethod != False and takedownMethod != False:
             return {"setup": self.setDownMethods[setupMethodIndex],
-                    "takedowen": self.setDownMethods[takedownMethodIndex]}
+                    "takedown": self.setDownMethods[takedownMethodIndex]}
 
         else:
             raise errors.BothSetupTakedownError("expected both setup and takedown methods/functions")

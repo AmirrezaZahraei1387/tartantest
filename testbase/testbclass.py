@@ -23,9 +23,10 @@ class TestBClass(base.Base):
 
         self.className = self.checkClass()  # if the subclass is not something we want error is raised
         self.allMethods = self.getAllMethodNames()    # the output is similar to this:
-        self.allCurrentMethods = inspect.getmembers(object=self, predicate=inspect.ismethod)
-        print(self.allCurrentMethods)
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
+        self.allCurrentMethods = inspect.getmembers(object=self, predicate=inspect.ismethod)
+        # getting all the methods no matter what it is
+
         super().__init__(self.allCurrentMethods)
 
     def checkClass(self):
@@ -70,17 +71,3 @@ class TestBClass(base.Base):
         for method in self.allMethods:
             self.runTest(testAddress=method[1], testName=method[0])
         print("***end running tests in class ", self.className.__name__, '\n')
-
-
-
-class testff(TestBClass):
-
-    def setup_hello(self):
-        print("kk")
-    def testb_hello(self):
-        print("hello")
-
-
-if __name__ =="__main__":
-    a = testff()
-    a.run()
