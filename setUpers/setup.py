@@ -69,47 +69,5 @@ class SetDown:
             raise errors.BothSetupTakedownError("expected to provide both setup and takedown method/function")
 
         else:
-            return {"setup":self.__setDownMethods[setupMethodIndex], "takedowen":self.__setDownMethods[takedownMethodIndex]}
-
-
- 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return {"setup": self.__setDownMethods[setupMethodIndex],
+                    "takedowen": self.__setDownMethods[takedownMethodIndex]}
