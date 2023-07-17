@@ -19,21 +19,18 @@ import setUpers.errors as errors
 
 
 class SetDown:
-
-    __setDownMethods: list
+    setDownMethods: list = []
     names: list = {"setup": "setup", "takedown": "takedown"}
-    SEARCH_NAMES = 0    # this is the value for searching among names
+    SEARCH_NAMES = 0  # this is the value for searching among names
     SEARCH_ADDrESS = 1  # this is a value that determine search among addresses
 
     def __init__(self, allMethods):
         """these are the names of all  methods of class
         or functions containing both tests and other functions and methods"""
 
-        self.__setDownMethods = []
-
         for method in allMethods:
             if method[0].startswith(self.names["setup"]) or method[0].startswith(self.names["takedown"]):
-                self.__setDownMethods.append(method)
+                self.setDownMethods.append(method)
 
     def search(self, item, mode: int):
         """here item is something that we want to search in the list
@@ -41,17 +38,16 @@ class SetDown:
         contain a tuple and each tuple have the name and address."""
         index = -1
 
-        for method in self.__setDownMethods:
+        for method in self.setDownMethods:
             index += 1
             if method[mode] == item:
                 return index
         raise IndexError("item is not found")
 
-
     def runMethod(self, nameMethod):
 
-        setupMethod = self.names["setup"]+str(nameMethod)
-        takedownMethod = self.names["takedown"]+str(nameMethod)
+        setupMethod = self.names["setup"] + str(nameMethod)
+        takedownMethod = self.names["takedown"] + str(nameMethod)
         try:
             setupMethodIndex = self.search(setupMethod, self.SEARCH_NAMES)
         except IndexError:
@@ -66,8 +62,8 @@ class SetDown:
             return 0
 
         elif setupMethod != False and takedownMethod != False:
-            return {"setup": self.__setDownMethods[setupMethodIndex],
-                    "takedowen": self.__setDownMethods[takedownMethodIndex]}
+            return {"setup": self.setDownMethods[setupMethodIndex],
+                    "takedowen": self.setDownMethods[takedownMethodIndex]}
 
         else:
             raise errors.BothSetupTakedownError("expected both setup and takedown methods/functions")
