@@ -32,6 +32,12 @@ class SetDown:
             if method[0].startswith(self.names["setup"]) or method[0].startwith(self.names["takedown"]):
                 self.__setDownMethods.append(method)
 
+    def search(self, item, mode):
+        """here item is something that we want to search in the list
+        and the mode determines, where to search because the __SetDownMethods
+        contain a tuple and each tuple have the name and address."""
+
+
     def runMethod(self, nameMethod):
 
         setupMethod = self.names["setup"]+str(nameMethod)
