@@ -11,42 +11,50 @@ import time
 import traceback
 from termcolor import colored
 import testbase.errors as errors
+import abc
 
 # this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests
 STARTING_NAME = "testb"
 
 
-def getParameterNumber(obj:callable):
-    """this function will simply give back the number of parameters of
-    a callable object"""
-    return len(inspect.signature(obj).parameters)
+class Base(abc.ABC):
+
+    @staticmethod
+    def getParameterNumber(obj: callable):
+        """this function will simply give back the number of parameters of
+        a callable object"""
+        return len(inspect.signature(obj).parameters)
+
+    @staticmethod
+    def print_error_message(testName):
+        print(colored("test failed at " + str(testName), "red"))
+        print(colored(traceback.format_exc(), "red"))
+
+    def runTest(self, testAddress, testName):
+        startingTime = time.time()
+
+        try:
+            testAddress()
+        except Exception:
+            self.print_error_message(testName)
+        except BaseException:
+            self.print_error_message(testName)
+        else:
+            print(colored("successfully ran test " + str(testName), "green"))
+
+        endingTime = time.time()
+        print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
+
+        print("=======================================================================")
+
+    @abc.abstractmethod
+    def run(self):
+        """this is the function that will run the test"""
 
 
-def print_error_message(testName):
-    print(colored("test failed at " + str(testName), "red"))
-    print(colored(traceback.format_exc(), "red"))
 
-
-def runTest(testAddress, testName):
-    startingTime = time.time()
-
-    try:
-        testAddress()
-    except Exception:
-        print_error_message(testName)
-    except BaseException:
-        print_error_message(testName)
-    else:
-        print(colored("successfully ran test " + str(testName), "green"))
-
-    endingTime = time.time()
-    print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
-
-    print("=======================================================================")
-
-
-class TestBClass:
+class TestBClass():
 
 
     def checkClass(self):
@@ -84,6 +92,8 @@ class TestBClass:
                 acceptedMethods.append(method)
 
         return acceptedMethods
+
+
 
     def run(self):
 
