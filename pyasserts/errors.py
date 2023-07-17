@@ -1,6 +1,6 @@
 
 
-class FailAssertionError(BaseException):
+class FailAssertionError(Exception):
     """this error will be raised when the assertion went wrong,
     and it evaluates to the thing that we did not want."""
     def __init__(self, statement: str, value1,
@@ -19,7 +19,7 @@ class FailAssertionError(BaseException):
         super().__init__(self.message)
 
 
-class preFailError(BaseException):
+class preFailError(Exception):
     """this error is raised when we want to fail a test with
     no condition. it can have two different conditions fail one test or
     failing all the tests in the class."""
