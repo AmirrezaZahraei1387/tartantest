@@ -21,6 +21,10 @@ class TestBFunc(Base):
         name."""
         self.__name = name
 
+        # the values for the __init__ of Base are not provided
+        # because it needs all the functions we have, and at this point we do not now our functions
+        # we provide it later in the run method
+        super().__init__([])
 
     def addFunc(self, function):
         """this is the decorator that will get the
@@ -40,11 +44,28 @@ class TestBFunc(Base):
             raise errors.TooManyParametersError("expected no parameters for "+str(function.__name__))
         return function
 
-    def run(self):
+    def makeFormatOkForBase(self, funcs):
+        """because the Base class only will accept the for like this:
+        # [(methodName, methodAddress), (methodName, methodAddress), ... ]
+        we need to make it to avoid problems"""
 
+        newFuncFor = []
+
+        for func in funcs:
+            newFuncFor.append((func.__name__, func))
+
+        return newFuncFor
+
+    def run(self):
+        self.setDownMethods = self.makeFormatOkForBase(self.__functions)
         print("***start running function tests named ", self.__name, "\n")
         for func in self.__functions:
-            self.runTest(func, func.__name__)
+            name = str(func.__name__)
+            if name.startswith(self.names["setup"]) or name.startswith(self.names["takedown"]):
+                pass
+            else:
+                self.runTest(func, func.__name__)
         print("***end running function tests named ", self.__name, "\n")
+
 
 
