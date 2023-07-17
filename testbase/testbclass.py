@@ -6,9 +6,10 @@ the class will run the tests by getting the names of
 methods inside that starts with test word. this because of
 this reason to find the methods that are not tests and probably
 have parameters."""
+
 import inspect
 import testbase.errors as errors
-import base
+import testbase.base as base
 
 
 # this is the constants that defines the name that must come first in the method name of subclass that
@@ -20,29 +21,29 @@ class TestBClass(base.Base):
 
     def __init__(self):
 
-
         self.className = self.checkClass()  # if the subclass is not something we want error is raised
-        self.allMethods = self.getAllMethodNames(self.className)    # the output is similar to this:
+        self.allMethods = self.getAllMethodNames()    # the output is similar to this:
+        self.allCurrentMethods = inspect.getmembers(object=self, predicate=inspect.ismethod)
+        print(self.allCurrentMethods)
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
-        super().__init__(self.allMethods)
+        super().__init__(self.allCurrentMethods)
 
     def checkClass(self):
         """this method will check if the subclass meet the requirements
         or no.
         checking if its constructor has exactly 1 parameter self"""
-
-        className = self.__class__().__class__  # here we are getting the name of the subclass
-        parametersNumber = self.getParameterNumber(className)
+        className_ = self.__class__  # here we are getting the name of the subclass
+        parametersNumber = self.getParameterNumber(className_)
         if parametersNumber > 0:  # check if the __init__ have more than or  0 parameter
             raise errors.TooManyParametersError("expected one parameter got " + str(parametersNumber))
 
-        return className
+        return className_
 
-    def getAllMethodNames(self, className):
+    def getAllMethodNames(self):
         """this method will get all the method names of the
         subclass given as className"""
 
-        obj = className()
+        obj = self
         methods = inspect.getmembers(object=obj, predicate=inspect.ismethod)
         acceptedMethods = []
 
@@ -69,3 +70,17 @@ class TestBClass(base.Base):
         for method in self.allMethods:
             self.runTest(testAddress=method[1], testName=method[0])
         print("***end running tests in class ", self.className.__name__, '\n')
+
+
+
+class testff(TestBClass):
+
+    def setup_hello(self):
+        print("kk")
+    def testb_hello(self):
+        print("hello")
+
+
+if __name__ =="__main__":
+    a = testff()
+    a.run()

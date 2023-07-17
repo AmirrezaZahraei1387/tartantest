@@ -7,7 +7,7 @@ you do not need to put a special name at the first of function
 names."""
 
 import testbase.errors as errors
-from testbase.testbclass import Base
+from testbase.base import Base
 
 
 class TestBFunc(Base):
