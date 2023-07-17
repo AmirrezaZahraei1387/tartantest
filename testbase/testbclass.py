@@ -97,5 +97,9 @@ class TestBClass:
         allMethods = self.getAllMethodNames(className=className)  # the output is similar to this:
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
 
+        print("***start running tests in class ", className.__name__, '\n')
         for method in allMethods:
             runTest(testAddress=method[1], testName=method[0])
+        print("***end running tests in class ", className.__name__, '\n')
+
+
