@@ -20,6 +20,7 @@ import setUpers.errors as errors
 
 class SetDown:
 
+    __setDownMethods: list
     names: list = {"setup": "setup", "takedown": "takedown"}
     SEARCH_NAMES = 0    # this is the value for searching among names
     SEARCH_ADDrESS = 1  # this is a value that determine search among addresses
@@ -31,7 +32,7 @@ class SetDown:
         self.__setDownMethods = []
 
         for method in allMethods:
-            if method[0].startswith(self.names["setup"]) or method[0].startwith(self.names["takedown"]):
+            if method[0].startswith(self.names["setup"]) or method[0].startswith(self.names["takedown"]):
                 self.__setDownMethods.append(method)
 
     def search(self, item, mode: int):
@@ -51,7 +52,6 @@ class SetDown:
 
         setupMethod = self.names["setup"]+str(nameMethod)
         takedownMethod = self.names["takedown"]+str(nameMethod)
-
         try:
             setupMethodIndex = self.search(setupMethod, self.SEARCH_NAMES)
         except IndexError:
@@ -65,9 +65,9 @@ class SetDown:
         if setupMethod is False and takedownMethod is False:
             return 0
 
-        elif setupMethod != takedownMethod:
-            raise errors.BothSetupTakedownError("expected to provide both setup and takedown method/function")
-
-        else:
+        elif setupMethod != False and takedownMethod != False:
             return {"setup": self.__setDownMethods[setupMethodIndex],
                     "takedowen": self.__setDownMethods[takedownMethodIndex]}
+
+        else:
+            raise errors.BothSetupTakedownError("expected both setup and takedown methods/functions")
