@@ -23,15 +23,20 @@ def getParameterNumber(obj:callable):
     return len(inspect.signature(obj).parameters)
 
 
-def runTest(testAddress, testName):
+def print_error_message(testName):
+    print(colored("test failed at " + str(testName), "red"))
+    print(colored(traceback.format_exc(), "red"))
 
+
+def runTest(testAddress, testName):
     startingTime = time.time()
 
     try:
         testAddress()
     except Exception:
-        print(colored("test failed at " + str(testName), "red"))
-        print(colored(traceback.format_exc(), "red"))
+        print_error_message(testName)
+    except BaseException:
+        print_error_message(testName)
     else:
         print(colored("successfully ran test " + str(testName), "green"))
 
@@ -90,3 +95,4 @@ class TestBClass:
         for method in allMethods:
             runTest(testAddress=method[1], testName=method[0])
         print("***end running tests in class ", className.__name__, '\n')
+
