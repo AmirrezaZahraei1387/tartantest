@@ -14,6 +14,14 @@ class TestBFunc:
 
     __functions: list = []
 
+    def __init__(self, name: str):
+        """the name parameter is the name of the test it is running.
+        it is used to organize the tests results printed in console
+        better, and it is a better idea to provide it with a meaningful
+        name."""
+        self.__name = name
+
+
     def addFunc(self, function):
         """this is the decorator that will get the
         function and save the function to run for
@@ -35,13 +43,9 @@ class TestBFunc:
 
     def run(self):
 
+        print("***start running function tests named ", self.__name, "\n")
         for func in self.__functions:
             runTest(func, func.__name__)
-
-
-
-
-
-
+        print("***end running function tests named ", self.__name, "\n")
 
 
