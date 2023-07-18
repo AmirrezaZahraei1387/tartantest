@@ -5,41 +5,31 @@ import traceback
 from termcolor import colored
 from setUpers.setup import SetDown
 import inspect
+from setUpers import errors
 
-
-def RunsetupTakedown(method):
-    """this decorator will simply run the setup first and takedown second
-    for the given method"""
-
-    def new_func(self, testAddress, testName):
-        startingTime = time.time()
-        methods = self.runMethod(testName)  # getting the names off setup and takedown methods
-
-        if methods != 0:  # if that was 0 it means that there is no setup or takedown for the test
-            self.setDownBaseRunner(methods, "setup", testName)
-            method(self, testAddress, testName)
-            self.setDownBaseRunner(methods, "takedown", testName)
-        else:
-            method(self, testAddress, testName)
-
-        endingTime = time.time()
-        print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
-        print("=======================================================================")
-    return new_func
 
 
 class Base(SetDown):
 
+    testFailed = -1
+    testOk = 1
+
     def __init__(self, allMethods):
         super().__init__(allMethods=allMethods)
 
-    def setDownBaseRunner(self, methods, name, testName):
+    def methodRunner(self, method, testName):
+
         try:
-            methods[name][1]()
+            method()
         except Exception:
-            self.print_error_message(testName + " " + name)
+            self.print_error_message(testName)
+
         except BaseException:
-            self.print_error_message(testName + " " + name)
+            self.print_error_message(testName)
+
+        else:
+            print(colored("successfully ran test " + str(testName), "green"))
+
 
     @staticmethod
     def getParameterNumber(obj: callable):
@@ -52,14 +42,36 @@ class Base(SetDown):
         print(colored("test failed at " + str(testName), "red"))
         print(colored(traceback.format_exc(), "red"))
 
-    @RunsetupTakedown
+
     def runTest(self, testAddress, testName):
 
         try:
-            testAddress()
-        except Exception:
+            methods = self.runMethod(testName)  # getting the names off setup and takedown methods
+
+        except errors.BothSetupTakedownError:
             self.print_error_message(testName)
-        except BaseException:
-            self.print_error_message(testName)
+            return self.testFailed
+
+        startingTime = time.time()
+        if methods != self.noSetDown:
+            self.methodRunner(methods["setup"][1], methods["setup"][1].__name__)
+            self.methodRunner(testAddress, testName)
+            self.methodRunner(methods["takedown"][1], methods["takedown"][1].__name__)
         else:
-            print(colored("successfully ran test " + str(testName), "green"))
+            self.methodRunner(testAddress, testName)
+        endingTime = time.time()
+
+        print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
+        print("=======================================================================")
+
+
+
+
+
+
+
+
+
+
+
+

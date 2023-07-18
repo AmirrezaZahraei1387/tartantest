@@ -28,6 +28,7 @@ class SetDown(setupTakeDownNames):
     __setDownMethods: list = []
     SEARCH_NAMES = 0  # this is the value for searching among names
     SEARCH_ADDrESS = 1  # this is a value that determine search among addresses
+    noSetDown = 0   # meaning there is no setup or take down for the expected method
 
     def __init__(self, allMethods):
         """these are the names of all  methods of class
@@ -67,7 +68,7 @@ class SetDown(setupTakeDownNames):
             takedownMethod = False
 
         if setupMethod is False and takedownMethod is False:
-            return 0
+            return self.noSetDown
 
         elif setupMethod is not False and takedownMethod is not False:
             return {"setup": self.__setDownMethods[setupMethodIndex],
