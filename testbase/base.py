@@ -7,21 +7,23 @@ from setUpers.setup import SetDown
 import inspect
 
 
+
+
 def RunsetupTakedown(method):
     """this decorator will simply run the setup first and takedown second
     for the given method"""
+
     def new_func(self, testAddress, testName):
         startingTime = time.time()
         methods = self.runMethod(testName)  # getting the names off setup and takedown methods
-        try:
-            if methods != 0:  # if that was 0 it means that there is no setup or takedown for the test
-                methods["setup"][1]()
-                method(self, testAddress, testName)
-                methods["takedown"][1]()
-            else:
-                method(self, testAddress, testName)
-        except Exception:
-            self.print_error_message(testName)  # this is the method from Base class
+
+        if methods != 0:  # if that was 0 it means that there is no setup or takedown for the test
+            self.setDownBaseRunner("setup", testName)
+            method(self, testAddress, testName)
+            self.setDownBaseRunner("takedown", testName)
+        else:
+            method(self, testAddress, testName)
+
         endingTime = time.time()
         print(colored("ran test " + str(testName) + " in " + str(endingTime - startingTime) + "s", "green"))
         print("=======================================================================")
@@ -33,6 +35,13 @@ class Base(SetDown):
     def __init__(self, allMethods):
         super().__init__(allMethods=allMethods)
 
+    def setDownBaseRunner(self, name, testName):
+        try:
+            methods[name][1]()
+        except Exception:
+            self.print_error_message(testName + " setup")
+        except BaseException:
+            self.print_error_message(testName + " setup")
 
     @staticmethod
     def getParameterNumber(obj: callable):
