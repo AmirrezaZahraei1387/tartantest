@@ -18,9 +18,14 @@ note for every setup a takedown is needed respectively
 import setUpers.errors as errors
 
 
-class SetDown:
-    setDownMethods: list = []
-    names: list = {"setup": "setup", "takedown": "takedown"}
+class setupTakeDownNames:
+    """a class containing all the values we need for the names of
+    setup and takedown methods"""
+    names: dict = {"setup": "setup", "takedown": "takedown"}
+
+
+class SetDown(setupTakeDownNames):
+    __setDownMethods: list = []
     SEARCH_NAMES = 0  # this is the value for searching among names
     SEARCH_ADDrESS = 1  # this is a value that determine search among addresses
 
@@ -29,8 +34,8 @@ class SetDown:
         or functions containing both tests and other functions and methods"""
 
         for method in allMethods:
-            if method[0].startswith(self.names["setup"]) or method[0].startswith(self.names["takedown"]):
-                self.setDownMethods.append(method)
+            if method[0].startswith(self.names['setup']) or method[0].startswith(self.names["takedown"]):
+                self.__setDownMethods.append(method)
 
     def search(self, item, mode: int):
         """here item is something that we want to search in the list
@@ -38,13 +43,16 @@ class SetDown:
         contain a tuple and each tuple have the name and address."""
         index = -1
 
-        for method in self.setDownMethods:
+        for method in self.__setDownMethods:
             index += 1
             if method[mode] == item:
                 return index
         raise IndexError("item is not found")
 
     def runMethod(self, nameMethod):
+
+        setupMethodIndex = 0    # here we initialize these variables to avoid warnings
+        takedownMethodIndex = 0
 
         setupMethod = self.names["setup"] + str(nameMethod)
         takedownMethod = self.names["takedown"] + str(nameMethod)
@@ -61,9 +69,9 @@ class SetDown:
         if setupMethod is False and takedownMethod is False:
             return 0
 
-        elif setupMethod != False and takedownMethod != False:
-            return {"setup": self.setDownMethods[setupMethodIndex],
-                    "takedown": self.setDownMethods[takedownMethodIndex]}
+        elif setupMethod is not False and takedownMethod is not False:
+            return {"setup": self.__setDownMethods[setupMethodIndex],
+                    "takedown": self.__setDownMethods[takedownMethodIndex]}
 
         else:
             raise errors.BothSetupTakedownError("expected both setup and takedown methods/functions")
