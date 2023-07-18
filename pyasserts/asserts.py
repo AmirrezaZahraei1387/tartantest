@@ -31,12 +31,6 @@ def failTest(description=""):
     raise errors.preFailError("failtest", description)
 
 
-def failAllTests(description=""):
-    """failing all the tests in  the class. in  that case the other tests
-    will never run  on that class"""
-    raise errors.preFailError("failall", description)
-
-
 def ifTrue(first, description=""):
     """check if the given object named first is true or not. if true it
     means success otherwise fail.
