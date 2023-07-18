@@ -1,5 +1,5 @@
 
 import pyasserts.errors as errors
-import pyasserts.asserts
+import pyasserts.asserts as asserts
 
 

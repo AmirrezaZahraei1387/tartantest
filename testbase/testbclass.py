@@ -71,8 +71,3 @@ class TestBClass(base.Base):
         for method in self.allMethods:
             self.runTest(testAddress=method[1], testName=method[0])
         print("***end running tests in class ", self.className.__name__, '\n')
-
-
-
-
-

@@ -44,7 +44,8 @@ class TestBFunc(Base):
             raise errors.TooManyParametersError("expected no parameters for "+str(function.__name__))
         return function
 
-    def makeFormatOkForBase(self, funcs):
+    @staticmethod
+    def makeFormatOkForBase(funcs):
         """because the Base class only will accept the for like this:
         # [(methodName, methodAddress), (methodName, methodAddress), ... ]
         we need to make it to avoid problems"""
@@ -57,7 +58,7 @@ class TestBFunc(Base):
         return newFuncFor
 
     def run(self):
-        self.setDownMethods = self.makeFormatOkForBase(self.__functions)
+        super().__init__(self.makeFormatOkForBase(self.__functions))
         print("***start running function tests named ", self.__name, "\n")
         for func in self.__functions:
             name = str(func.__name__)
@@ -66,3 +67,7 @@ class TestBFunc(Base):
             else:
                 self.runTest(func, func.__name__)
         print("***end running function tests named ", self.__name, "\n")
+
+
+
+
