@@ -66,6 +66,3 @@ class TestBFunc(Base):
             else:
                 self.runTest(func, func.__name__)
         print("***end running function tests named ", self.__name, "\n")
-
-
-
