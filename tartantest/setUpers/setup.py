@@ -15,7 +15,7 @@ note for every setup a takedown is needed respectively
 """
 
 # here methods refer to both function and method
-import setUpers.errors as errors
+from tartantest import setUpers as errors
 
 
 class setupTakeDownNames:

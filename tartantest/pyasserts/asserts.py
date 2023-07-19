@@ -2,7 +2,7 @@
 assertions for the tests that are written. they are implemented
 as functions and not classes, and they can raise an error
 when they are not satisfied with the given input."""
-import pyasserts.errors as errors
+from tartantest import pyasserts as errors
 
 
 def ifEqual(first, second, description=""):

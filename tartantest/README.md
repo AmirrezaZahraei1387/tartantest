@@ -19,7 +19,7 @@ there are a lot of assertion types that this framework supports here are all of 
 all together by their parameters.
 
 ```python
-from pyasserts.asserts import*
+from tartantest.pyasserts.asserts import *
 
 ifEqual(first, second, description="")
 ifnEqual(first, second, description="")
@@ -44,13 +44,14 @@ in this framework you can run your tests as both classes and functions.
 to write you test as classes you should first import the following to you program
 
 ```python
-from testbase import TestBClass
+from tartantest.testbase import TestBClass
 ```
 
 then inherit the class that will contain you tests
 
 ```python
-from testbase import TestBClass
+from tartantest.testbase import TestBClass
+
 
 class MyTest(TestBClass):
     pass
@@ -59,15 +60,16 @@ class MyTest(TestBClass):
 now you can write down you tests in the class using assertions and any other exceptions.
 
 ```python
-from testbase import TestBClass
-from pyasserts import asserts
+from tartantest.testbase import TestBClass
+from tartantest.pyasserts import asserts
+
 
 class MyTest(TestBClass):
-    
+
     def testb_Addition(self):
-        a = 6+3
+        a = 6 + 3
         asserts.ifEqual(a, 9, "the addition is not working")
-        
+
     def testb_TypeInt(self):
         a = int(45)
         asserts.ifInstance(a, int, "the int type have problem")
@@ -79,18 +81,20 @@ class MyTest(TestBClass):
 now for running you test simply use the run method like the following
 
 ```python
-from testbase import TestBClass
-from pyasserts import asserts
+from tartantest.testbase import TestBClass
+from tartantest.pyasserts import asserts
+
 
 class MyTest(TestBClass):
-    
+
     def testb_Addition(self):
-        a = 6+3
+        a = 6 + 3
         asserts.ifEqual(a, 9, "the addition is not working")
-        
+
     def testb_TypeInt(self):
         a = int(45)
         asserts.ifInstance(a, int, "the int type have problem")
+
 
 if __name__ == "__main__":
     test = MyTest()
@@ -116,7 +120,7 @@ ran test testb_TypeInt in 0.0s
 in order to run tests as functions first import the TestBFunc to program.
 
 ```python
-from testbase import TestBFunc
+from tartantest.testbase import TestBFunc
 ```
 
 now make an object from class TestBFunc and use the decorator addFunc to add the test
@@ -124,16 +128,18 @@ functions to the class main list.
 #### Note: class TestBFunc have parameter named main that will be the name of the set of tests you have when showing messages in console
 
 ```python
-from testbase import TestBFunc
-from pyasserts import asserts
+from tartantest.testbase import TestBFunc
+from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
 
+
 @obj.addFunc
 def testb_Addition():
-    a = 6+3
+    a = 6 + 3
     asserts.ifEqual(a, 9, "the addition is not working")
-  
+
+
 @obj.addFunc
 def testb_TypeInt():
     a = int(45)
@@ -143,20 +149,23 @@ def testb_TypeInt():
 finally use the run method to run the tests
 
 ```python
-from testbase import TestBFunc
-from pyasserts import asserts
+from tartantest.testbase import TestBFunc
+from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
 
+
 @obj.addFunc
 def testb_Addition():
-    a = 6+3
+    a = 6 + 3
     asserts.ifEqual(a, 9, "the addition is not working")
-  
+
+
 @obj.addFunc
 def testb_TypeInt():
     a = int(45)
     asserts.ifInstance(a, int, "the int type have problem")
+
 
 if __name__ == "__main__":
     obj.run()
@@ -183,39 +192,48 @@ setup or takedown in the first of the name of your test. for example a setup and
 for method/ function mytest will be setupmytest and takedownmytest.
 
 ```python
-from testbase import TestBFunc
-from pyasserts import asserts
+from tartantest.testbase import TestBFunc
+from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
+
 
 # ++++++++++++++++++++++++++
 @obj.addFunc
 def setuptestb_Addition():
     print("start testb_Addition")
 
+
 @obj.addFunc
 def testb_Addition():
-    a = 6+3
+    a = 6 + 3
     asserts.ifEqual(a, 9, "the addition is not working")
-    
+
+
 @obj.addFunc
 def takedowntestb_Addition():
     print("end testb_Addition")
+
+
 # +++++++++++++++++++++++++++
-    
-    
+
+
 @obj.addFunc
 def setuptestb_TypeInt():
     print("start testb_TypeInt")
-    
+
+
 @obj.addFunc
 def testb_TypeInt():
     a = int(45)
     asserts.ifInstance(a, int, "the int type have problem")
-    
+
+
 @obj.addFunc
 def takedowntestb_TypeInt():
     print("end testb_TypeInt")
+
+
 # ++++++++++++++++++++++++++
 
 if __name__ == "__main__":
@@ -226,33 +244,36 @@ and for classes:
 
 ```python
 # functest.py
-from testbase import TestBClass
-from pyasserts import asserts
+from tartantest.testbase import TestBClass
+from tartantest.pyasserts import asserts
+
 
 class MyTest(TestBClass):
 
-# ++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++
     def setuptestb_Addition(self):
         print("start testb_Addition")
 
     def testb_Addition(self):
-        a = 6+3
+        a = 6 + 3
         asserts.ifEqual(a, 9, "the addition is not working")
-    
+
     def takedowntestb_Addition(self):
         print("end testb_Addition")
-# +++++++++++++++++++++++++++
-    
-    
+
+    # +++++++++++++++++++++++++++
+
     def setuptestb_TypeInt(self):
         print("start testb_TypeInt")
-    
+
     def testb_TypeInt(self):
         a = int(45)
         asserts.ifInstance(a, int, "the int type have problem")
 
     def takedowntestb_TypeInt(self):
         print("end testb_TypeInt")
+
+
 # ++++++++++++++++++++++++++
 
 if __name__ == "__main__":
@@ -261,41 +282,51 @@ if __name__ == "__main__":
 ```
 
 ## Running MultipleTests in Different Files
+
 ```python
 # functest.py
-from testbase import TestBFunc
-from pyasserts import asserts
+from tartantest.testbase import TestBFunc
+from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
+
 
 # ++++++++++++++++++++++++++
 @obj.addFunc
 def setuptestb_Addition():
     print("start testb_Addition")
 
+
 @obj.addFunc
 def testb_Addition():
-    a = 6+3
+    a = 6 + 3
     asserts.ifEqual(a, 9, "the addition is not working")
-    
+
+
 @obj.addFunc
 def takedowntestb_Addition():
     print("end testb_Addition")
+
+
 # +++++++++++++++++++++++++++
-    
-    
+
+
 @obj.addFunc
 def setuptestb_TypeInt():
     print("start testb_TypeInt")
-    
+
+
 @obj.addFunc
 def testb_TypeInt():
     a = int(45)
     asserts.ifInstance(a, int, "the int type have problem")
-    
+
+
 @obj.addFunc
 def takedowntestb_TypeInt():
     print("end testb_TypeInt")
+
+
 # ++++++++++++++++++++++++++
 
 if __name__ == "__main__":
@@ -303,34 +334,37 @@ if __name__ == "__main__":
 ```
 
 ```python
-#classtest.py
-from testbase import TestBClass
-from pyasserts import asserts
+# classtest.py
+from tartantest.testbase import TestBClass
+from tartantest.pyasserts import asserts
+
 
 class MyTest(TestBClass):
 
-# ++++++++++++++++++++++++++
+    # ++++++++++++++++++++++++++
     def setuptestb_Addition(self):
         print("start testb_Addition")
 
     def testb_Addition(self):
-        a = 6+3
+        a = 6 + 3
         asserts.ifEqual(a, 9, "the addition is not working")
-    
+
     def takedowntestb_Addition(self):
         print("end testb_Addition")
-# +++++++++++++++++++++++++++
-    
-    
+
+    # +++++++++++++++++++++++++++
+
     def setuptestb_TypeInt(self):
         print("start testb_TypeInt")
-    
+
     def testb_TypeInt(self):
         a = int(45)
         asserts.ifInstance(a, int, "the int type have problem")
 
     def takedowntestb_TypeInt(self):
         print("end testb_TypeInt")
+
+
 # ++++++++++++++++++++++++++
 
 if __name__ == "__main__":
@@ -347,16 +381,20 @@ the fileRun will get the names of all test files as one single list and run them
 dirRun will get the directory that contains all tests, and then it will run them.
 
 for example:
+
 ```python
-#classtest.py
-from testbase.testall import fileRun
+# classtest.py
+from tartantest.testbase import fileRun
+
 fileRun(["classtest.py", "functest.py"])
 ```
 or when you put your tests inside a directory you can use this:
+
 ```python
-#classtest.py
-from testbase.testall import dirRun
-dirRun("tests") # directory name. we supposed it is named tests
+# classtest.py
+from tartantest.testbase import dirRun
+
+dirRun("tests")  # directory name. we supposed it is named tests
 ```
 
 

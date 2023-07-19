@@ -6,8 +6,8 @@ it will run all the functions to be tested.
 you do not need to put a special name at the first of function
 names."""
 
-import testbase.errors as errors
-from testbase.base import Base
+from tartantest import testbase as errors
+from tartantest.testbase.base import Base
 
 
 class TestBFunc(Base):
@@ -41,7 +41,7 @@ class TestBFunc(Base):
 
         parameterNumber = self.getParameterNumber(function)
         if parameterNumber > 0:
-            raise errors.TooManyParametersError("expected no parameters for "+str(function.__name__))
+            raise errors.TooManyParametersError("expected no parameters for " + str(function.__name__))
         return function
 
     @staticmethod
