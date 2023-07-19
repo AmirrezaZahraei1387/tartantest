@@ -1,0 +1,21 @@
+[project]
+name = "tartantest"
+version = "0.0.1"
+authors = [
+  { name="amirreza zahraei", email="amir.reza.zahraei@gmail.com" },
+]
+dependencies = [
+    "termcolor"
+]
+description = "a pakage for testing your python projects"
+readme = "README.md"
+requires-python = ">=3.1"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/AmirrezaZahraei1387/UnitTest-For-Python"
+"Bug Tracker" = "https://github.com/AmirrezaZahraei1387/UnitTest-For-Python/issues"
