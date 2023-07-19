@@ -1,6 +1,6 @@
-# PyUniTes
+# TartanTest
 
-pyunites is a python project that will make the process of writing unittests 
+tartantest is a python project that will make the process of writing unittests 
 in python faster and easier for you. as you that in unittest you should test each part individually.
 now in this library you can get a lot of tools that make this process faster.
 the option of this library for working toward the unittest are the following 
