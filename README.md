@@ -19,7 +19,7 @@ there are a lot of assertion types that this framework supports here are all of 
 all together by their parameters.
 
 ```python
-from tartantest.pyasserts.asserts import *
+from pyasserts.asserts import *
 
 ifEqual(first, second, description="")
 ifnEqual(first, second, description="")
@@ -44,13 +44,13 @@ in this framework you can run your tests as both classes and functions.
 to write you test as classes you should first import the following to you program
 
 ```python
-from tartantest.testbase import TestBClass
+from testbase import TestBClass
 ```
 
 then inherit the class that will contain you tests
 
 ```python
-from tartantest.testbase import TestBClass
+from testbase import TestBClass
 
 
 class MyTest(TestBClass):
@@ -60,8 +60,8 @@ class MyTest(TestBClass):
 now you can write down you tests in the class using assertions and any other exceptions.
 
 ```python
-from tartantest.testbase import TestBClass
-from tartantest.pyasserts import asserts
+from testbase import TestBClass
+from pyasserts import asserts
 
 
 class MyTest(TestBClass):
@@ -81,7 +81,7 @@ class MyTest(TestBClass):
 now for running you test simply use the run method like the following
 
 ```python
-from tartantest.testbase import TestBClass
+from testbase import TestBClass
 from tartantest.pyasserts import asserts
 
 
@@ -120,7 +120,7 @@ ran test testb_TypeInt in 0.0s
 in order to run tests as functions first import the TestBFunc to program.
 
 ```python
-from tartantest.testbase import TestBFunc
+from testbase import TestBFunc
 ```
 
 now make an object from class TestBFunc and use the decorator addFunc to add the test
@@ -128,7 +128,7 @@ functions to the class main list.
 #### Note: class TestBFunc have parameter named main that will be the name of the set of tests you have when showing messages in console
 
 ```python
-from tartantest.testbase import TestBFunc
+from testbase import TestBFunc
 from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
@@ -149,7 +149,7 @@ def testb_TypeInt():
 finally use the run method to run the tests
 
 ```python
-from tartantest.testbase import TestBFunc
+from testbase import TestBFunc
 from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
@@ -192,7 +192,7 @@ setup or takedown in the first of the name of your test. for example a setup and
 for method/ function mytest will be setupmytest and takedownmytest.
 
 ```python
-from tartantest.testbase import TestBFunc
+from testbase import TestBFunc
 from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
@@ -244,7 +244,7 @@ and for classes:
 
 ```python
 # functest.py
-from tartantest.testbase import TestBClass
+from testbase import TestBClass
 from tartantest.pyasserts import asserts
 
 
@@ -285,7 +285,7 @@ if __name__ == "__main__":
 
 ```python
 # functest.py
-from tartantest.testbase import TestBFunc
+from testbase import TestBFunc
 from tartantest.pyasserts import asserts
 
 obj = TestBFunc("my first tests")
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
 ```python
 # classtest.py
-from tartantest.testbase import TestBClass
+from testbase import TestBClass
 from tartantest.pyasserts import asserts
 
 
@@ -384,7 +384,7 @@ for example:
 
 ```python
 # classtest.py
-from tartantest.testbase import fileRun
+from testbase import fileRun
 
 fileRun(["classtest.py", "functest.py"])
 ```
@@ -392,7 +392,7 @@ or when you put your tests inside a directory you can use this:
 
 ```python
 # classtest.py
-from tartantest.testbase import dirRun
+from testbase import dirRun
 
 dirRun("tests")  # directory name. we supposed it is named tests
 ```

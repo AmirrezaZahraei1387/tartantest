@@ -3,7 +3,8 @@ run the tests. it gives some basic features to that"""
 import time
 import traceback
 from termcolor import colored
-from tartantest.setUpers import SetDown, errors
+from setUpers import SetDown
+from setUpers import errors
 import inspect
 
 

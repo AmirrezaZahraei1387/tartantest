@@ -8,7 +8,8 @@ this reason to find the methods that are not tests and probably
 have parameters."""
 
 import inspect
-from tartantest import testbase as errors, testbase as base
+from tartantest import testbase as errors
+import testbase as base
 
 # this is the constants that defines the name that must come first in the method name of subclass that
 # contain tests

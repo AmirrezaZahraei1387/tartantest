@@ -6,8 +6,8 @@ it will run all the functions to be tested.
 you do not need to put a special name at the first of function
 names."""
 
-from tartantest import testbase as errors
-from tartantest.testbase.base import Base
+import testbase as errors
+from testbase.base import Base
 
 
 class TestBFunc(Base):
